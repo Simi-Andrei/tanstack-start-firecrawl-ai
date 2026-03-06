@@ -28,7 +28,14 @@ export const scrapeUrlFn = createServerFn({ method: 'POST' })
 
     try {
       const result = await firecrawl.scrape(data.url, {
-        formats: ['markdown', { type: 'json', schema: extractSchema }],
+        formats: [
+          'markdown',
+          {
+            type: 'json',
+            //  schema: extractSchema
+            prompt: ' please extract the author and also publishedAt timestamp',
+          },
+        ],
         location: { country: 'US', languages: ['en'] },
         onlyMainContent: true,
         proxy: 'auto',
@@ -123,7 +130,16 @@ export const bulkScrapeUrlsFn = createServerFn({ method: 'POST' })
 
       try {
         const result = await firecrawl.scrape(url, {
-          formats: ['markdown', { type: 'json', schema: extractSchema }],
+          formats: [
+            'markdown',
+            {
+              type: 'json',
+
+              // schema: extractSchema
+              prompt:
+                ' please extract the author and also publishedAt timestamp',
+            },
+          ],
           location: { country: 'US', languages: ['en'] },
           onlyMainContent: true,
           proxy: 'auto',
